@@ -36,9 +36,9 @@ for i in range( 1, numScan ):
     points.append( Point(latitudeList[i], longitudeList[i], timeList[i].decode("utf-8"), valueList[i] ) )		
 
 FILENAME = "points.g2s" # *.gosa2sur
-with open(FILENAME, "ab") as file:
+with open(FILENAME, "wb") as file:
     pickle.dump(numScan, file)
 
 
-with open(FILENAME, "ab") as file:
+with open(FILENAME, "wb") as file:
     pickle.dump(points, file)
