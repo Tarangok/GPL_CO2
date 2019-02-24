@@ -13,15 +13,15 @@ class Point:
 
 
 
-if __name__ == "__main__":
-    FILENAME = "points.g2s" # *.gosa2sur
-    with open( FILENAME, "rb" ) as file:
-        numScan = pickle.load( file )
-        
-    points = list()
 
-    with open( FILENAME, "rb" ) as file:
-        points = pickle.load( file )
+FILENAME = "points.g2s" # *.gosa2sur
+with open( FILENAME, "rb" ) as file:
+    numScan = pickle.load( file )
+    
+points = list()
 
-    for p in points:
-        p.Print()
+with open( FILENAME, "rb" ) as file:
+    points = pickle.load( file )
+
+for p in points:
+    p.Print()
