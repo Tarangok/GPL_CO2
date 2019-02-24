@@ -11,7 +11,7 @@ class Point:
         #print( self.x, " ", self.y, " ", self.time, " ", self.value )
         print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
-
+####
 
 if __name__ == "__main__":
     FILENAME = "points.g2s" # *.gosa2sur
