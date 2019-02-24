@@ -1,7 +1,5 @@
 import h5py, pickle
 
-#convert h5 to g2s
-
 class Point:
     def __init__( self, x, y, t, v ):
         self.x = x
