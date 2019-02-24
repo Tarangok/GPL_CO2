@@ -2,13 +2,14 @@ import pickle
 
 
 class Point:
-    def __init__( self, x, y, t, v ):
+    def __init__( self, x, y, time, value ):
         self.x = x
         self.y = y
-        self.time = t
-        self.value = v
+        self.time = time
+        self.value = value
     def Print( self ):
-        print( self.x, " ", self.y, " ", self.time, " ", self.value )
+        #print( self.x, " ", self.y, " ", self.time, " ", self.value )
+        print("lat =% 4.6f;\t long =% 4.6f;\t val = % 4.6f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
 
 
