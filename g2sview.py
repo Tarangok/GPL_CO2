@@ -9,7 +9,7 @@ class Point:
         self.value = value
     def Print( self ):
         #print( self.x, " ", self.y, " ", self.time, " ", self.value )
-        print("lat =% 4.6f;\t long =% 4.6f;\t val = % 4.6f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
+        print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
 
 
