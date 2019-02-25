@@ -55,15 +55,18 @@ if __name__ == "__main__":
     i = 1
     g2s = list()
     for hdfFile in array:
-        print(i,"/",countFiles)
+        os.system("clear || cls")
+        print("Progress: ", "%3.1f"% ((i*100)/countFiles), " %  (", i,"/",countFiles, ')')
         g2s += convert(hdfFile)
         i+=1
+    
+    '''
     i = 1
     for e in g2s:
         print(i, end=' ')
         e.Print()
         i += 1
-
+    '''
     FILENAME = "points.g2s" # *.gosa2sur
     with open(FILENAME, "ab") as file:
         pickle.dump(g2s, file)
