@@ -10,10 +10,7 @@ class Point:
     def Print( self ):
         print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
-FILENAME = "points.g2s" # *.gosa2sur
-with open( FILENAME, "rb" ) as file:
-    numScan = pickle.load( file )
-    
+FILENAME = "points.g2s" # *.gosa2sur   
 points = list()
 
 with open( FILENAME, "rb" ) as file:
