@@ -15,6 +15,8 @@ points = list()
 
 with open( FILENAME, "rb" ) as file:
     points = pickle.load( file )
-
+i = 1
 for p in points:
+    print(i, end=' ')
     p.Print()
+    i += 1

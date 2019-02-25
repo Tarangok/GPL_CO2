@@ -1,13 +1,13 @@
 import h5py, pickle, os
 
 class Point:
-    def __init__( self, x, y, t, v ):
+    def __init__( self, x, y, time, value ):
         self.x = x
         self.y = y
-        self.time = t
-        self.value = v
+        self.time = time
+        self.value = value
     def Print( self ):
-        print( self.x, " ", self.y, " ", self.time, " ", self.value )
+        print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
 def convert(filename):
     f = h5py.File("SWIRL2CO2/"+filename, 'r')
@@ -35,12 +35,17 @@ def convert(filename):
     for i in range( 1, numScan ):										
         points.append( Point(latitudeList[i], longitudeList[i], timeList[i].decode("utf-8"), valueList[i] ) )		
 
-    FILENAME = "points.g2s" # *.gosa2sur
+    
 
-    with open(FILENAME, "ab") as file:
-        pickle.dump(points, file)
+    #for p in points:
+    #    p.Print()
+    return points
+    #with open(FILENAME, "ab") as file:
+    #    pickle.dump(points, file)
 
 if __name__ == "__main__":
+    os.system("rm hdflist.txt")
+    os.system("rm points.g2s")
     os.system("ls SWIRL2CO2/ >> hdflist.txt")
 
     with open("hdflist.txt") as file:
@@ -48,8 +53,17 @@ if __name__ == "__main__":
 
     countFiles = len(array)
     i = 1
-
+    g2s = list()
     for hdfFile in array:
         print(i,"/",countFiles)
-        convert(hdfFile)
+        g2s += convert(hdfFile)
         i+=1
+    i = 1
+    for e in g2s:
+        print(i, end=' ')
+        e.Print()
+        i += 1
+
+    FILENAME = "points.g2s" # *.gosa2sur
+    with open(FILENAME, "ab") as file:
+        pickle.dump(g2s, file)
