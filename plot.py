@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import *
-from tkinter import *
+#from tkinter import *
 import pickle
 #import 
-from PIL import Image, ImageTk
+#from PIL import Image, ImageTk
 
 class Point:
 	def __init__( self, x, y, time, value ):

@@ -10,7 +10,7 @@ class Point:
         print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
 def convert(filename):
-    f = h5py.File("SWIRL2CO2/"+filename, 'r')
+    f = h5py.File(filename, 'r')
     Data = f['Data']
     geolocation = Data['geolocation']
     longitude = geolocation['longitude']
