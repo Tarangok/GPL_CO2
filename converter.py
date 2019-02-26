@@ -44,9 +44,9 @@ def convert(filename):
     #    pickle.dump(points, file)
 
 if __name__ == "__main__":
-    os.system("rm hdflist.txt")
-    os.system("rm points.g2s")
-    os.system("ls SWIRL2CO2/ >> hdflist.txt")
+    #os.system("rm hdflist.txt")
+    #os.system("rm points.g2s")
+    #os.system("ls SWIRL2CO2/ >> hdflist.txt")
 
     with open("hdflist.txt") as file:
         array = [row.strip() for row in file]
@@ -68,5 +68,6 @@ if __name__ == "__main__":
         i += 1
     '''
     FILENAME = "points.g2s" # *.gosa2sur
-    with open(FILENAME, "ab") as file:
+    FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
+    with open(FILENAME_LITE, "ab") as file:
         pickle.dump(g2s, file)
