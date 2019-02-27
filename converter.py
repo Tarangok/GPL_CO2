@@ -52,8 +52,6 @@ if __name__ == "__main__":
 		# Списки долготы и ширины
 		longitudeList = list( longitude )									
 		latitudeList = list( latitude )
-		#print(points)
-		#print(points.items())
 		
 		
 		print(dict_str)
@@ -69,15 +67,6 @@ if __name__ == "__main__":
 				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			
-	
-	'''
-	i = 1
-	for e in g2s:
-		print(i, end=' ')
-		e.Print()
-		i += 1
-	'''
-	
 	FILENAME = "points.g2s" # *.gosa2sur
 	FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
 	with open(FILENAME, "wb") as file:
