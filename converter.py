@@ -27,7 +27,8 @@ if __name__ == "__main__":
 	for hdfFile in array:
 		os.system("clear || cls")
 		print("Progress: ")
-		for one_point in range(0,j):
+		
+		for one_point in range(0,(j*100)/countFiles):
 			print(".", end='')
 
 		print("\n %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')

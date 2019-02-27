@@ -37,14 +37,17 @@ if __name__ == "__main__":
 
 	root = Tk()
 
-	colors = list(Color("blue").range_to(Color("red"), 40))
+	colors = list(Color("blue").range_to(Color("red"), 150))
 	canv = Canvas(root, width = 1300, height = 700, bg = "white")
 	keys = list(points.keys())
 	iterator_1 = 1
 	for key in keys:
+		if key == "None":
+			continue
 		for p in points[key]:
-			clr = colors[int(p.GetV() - 364)].get_hex()
-			canv.create_oval(570 + p.GetY()*4, 350 + p.GetX()*-5, 570 + p.GetY()*4 + 4, 350 + p.GetX()*-5 + 4, outline=clr, fill=clr)
+			clr = colors[int(p.GetV() - 370)].get_hex()
+			#canv.create_oval(570 + p.GetY()*4, 350 + p.GetX()*-5, 570 + p.GetY()*4 + 4, 350 + p.GetX()*-5 + 4, outline=clr, fill=clr)
+			canv.create_bitmap(p.getX(), p.getY(), fill=clr)
 			iterator_1 += 1
 
 			canv.pack()
