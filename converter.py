@@ -67,8 +67,10 @@ if __name__ == "__main__":
 	countFiles = len(array)
 	j = 1
 	
-	tmplist = list()
+	tmplist = []
+	tmplist.append("None")
 	points = dict()
+	dict_str = 'None'
 	for hdfFile in array:
 		os.system("clear || cls")
 		print("Progress: ", "%3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
@@ -93,16 +95,21 @@ if __name__ == "__main__":
 		# Списки долготы и ширины
 		longitudeList = list( longitude )									
 		latitudeList = list( latitude )
-
+		#print(points)
+		#print(points.items())
 		
-		dict_str = timeList[0].decode("utf-8")[0:6]
+		
+		print(dict_str)
 		for i in range(1, numScan):
-			if dict_str == timeList[i].decode("utf-8")[0:6]:
+			if dict_str == timeList[i].decode("utf-8")[0:7]:
+				#print("0:6_1 ", timeList[i].decode("utf-8")[0:7], " str", dict_str, " OK!" )
+				
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			else:
-				points[dict_str] = tmplist
+				#print("0:6_1 ", timeList[i].decode("utf-8")[0:6])
+				points[str(dict_str)] = list(tmplist)
 				tmplist.clear()
-				dict_str = timeList[i].decode("utf-8")[0:6]
+				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			
 	
@@ -113,7 +120,8 @@ if __name__ == "__main__":
 		e.Print()
 		i += 1
 	'''
+	
 	FILENAME = "points.g2s" # *.gosa2sur
 	FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
 	with open(FILENAME_LITE, "ab") as file:
-		pickle.dump(FILENAME, file)
+		pickle.dump(points, file)
