@@ -1,2 +1,5 @@
 *.g2s
 *.jpg
+/SWIRL2CO2
+/env
+/.vscode
