@@ -123,5 +123,5 @@ if __name__ == "__main__":
 	
 	FILENAME = "points.g2s" # *.gosa2sur
 	FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
-	with open(FILENAME_LITE, "ab") as file:
+	with open(FILENAME_LITE, "wb") as file:
 		pickle.dump(points, file)

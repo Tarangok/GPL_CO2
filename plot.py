@@ -8,10 +8,10 @@ import datetime
 
 
 class Point:
-	def __init__( self, x, y, time, value ):
+	def __init__( self, x, y, time, value):
 		self.x = x
 		self.y = y
-		self.time = time
+		self.time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f').date()
 		self.value = value
 
 	def Print( self ):
@@ -33,22 +33,21 @@ if __name__ == "__main__":
 	with open( "points.g2s", "rb" ) as file:
 		points = pickle.load( file )
 	
-	points.sort(key=byValue)
+	##points.sort(key=byValue)
 
 	root = Tk()
 
 	colors = list(Color("blue").range_to(Color("red"), 40))
 	canv = Canvas(root, width = 1300, height = 700, bg = "white")
-	#pilImage = Image.open("world_map.jpg")
-	#image = ImageTk.PhotoImage(pilImage)
-	#imagesprite = canv.create_image(600,400,image=image)
+	keys = list(points.keys())
 	iterator_1 = 1
-	for p in points:
-		clr = colors[int(p.GetV() - 364)].get_hex()
-		canv.create_oval(570 + p.GetY()*4, 350 + p.GetX()*-5, 570 + p.GetY()*4 + 4, 350 + p.GetX()*-5 + 4, outline=clr, fill=clr)
-		iterator_1 += 1
+	for key in keys:
+		for p in points[key]:
+			clr = colors[int(p.GetV() - 364)].get_hex()
+			canv.create_oval(570 + p.GetY()*4, 350 + p.GetX()*-5, 570 + p.GetY()*4 + 4, 350 + p.GetX()*-5 + 4, outline=clr, fill=clr)
+			iterator_1 += 1
 
-		canv.pack()
+			canv.pack()
 	canv.pack()	
 	
 	root.mainloop()
