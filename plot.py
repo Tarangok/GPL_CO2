@@ -30,7 +30,7 @@ def byValue(point):
 	return point.GetV()
 
 if __name__ == "__main__":    
-	with open( "points.g2s", "rb" ) as file:
+	with open( "pointslite.g2s", "rb" ) as file:
 		points = pickle.load( file )
 	
 	##points.sort(key=byValue)

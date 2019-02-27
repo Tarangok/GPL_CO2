@@ -73,7 +73,11 @@ if __name__ == "__main__":
 	dict_str = 'None'
 	for hdfFile in array:
 		os.system("clear || cls")
-		print("Progress: ", "%3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
+		print("Progress: ")
+		for one_point in range(0,j):
+			print(".", end='')
+
+		print("\n %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
 		j+=1
 		f = h5py.File("SWIRL2CO2/"+hdfFile, 'r')
 		Data = f['Data']
@@ -123,5 +127,5 @@ if __name__ == "__main__":
 	
 	FILENAME = "points.g2s" # *.gosa2sur
 	FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
-	with open(FILENAME_LITE, "wb") as file:
+	with open(FILENAME, "wb") as file:
 		pickle.dump(points, file)
