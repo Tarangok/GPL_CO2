@@ -26,12 +26,12 @@ if __name__ == "__main__":
 	dict_str = 'None'
 	for hdfFile in array:
 		os.system("clear || cls")
-		print("Progress: ")
-		
-		for one_point in range(0,(j*100)/countFiles):
+		print("Progress: ", end='')
+
+		for one_point in range(0,int((j*100)/countFiles)):
 			print(".", end='')
 
-		print("\n %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
+		print(" %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
 		j+=1
 		f = h5py.File("SWIRL2CO2/"+hdfFile, 'r')
 		Data = f['Data']
