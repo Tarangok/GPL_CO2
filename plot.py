@@ -46,8 +46,10 @@ if __name__ == "__main__":
 			continue
 		for p in points[key]:
 			clr = colors[int(p.GetV() - 370)].get_hex()
+			x1, y1 = p.GetX()*4-2, p.GetY()*4-2  
+			x2, y2 = p.GetX()*4+2, p.GetY()*4+2
 			#canv.create_oval(570 + p.GetY()*4, 350 + p.GetX()*-5, 570 + p.GetY()*4 + 4, 350 + p.GetX()*-5 + 4, outline=clr, fill=clr)
-			canv.create_bitmap(p.getX(), p.getY(), fill=clr)
+			canv.create_oval(x1, y1, x2, y2, outline=clr, fill=clr)
 			iterator_1 += 1
 
 			canv.pack()
