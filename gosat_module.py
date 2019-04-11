@@ -94,8 +94,13 @@ def Convert():
 
 	
 	for key in points.keys():
+		i = 1
+		f = open('' + key + '.json', 'a+')
+		f.write("{\n\"type\": \"FeatureCollection\",\n\"features\": [\n")
 		for p in points[key]:
-			date = p.GetT()[0:7]
-			f = open('' + date + '.json', 'a+')
-			f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
+			if i != len(points[key]): 
+				f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetX() ), float( p.GetY() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
+			else:
+				f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetX() ), float( p.GetY() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n}\n')
 			i += 1
+		f.write("]\n}")
