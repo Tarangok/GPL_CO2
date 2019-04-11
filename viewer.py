@@ -1,5 +1,5 @@
 import pickle
-
+import sys
 
 class Point:
     def __init__( self, x, y, time, value ):
@@ -10,13 +10,18 @@ class Point:
     def Print( self ):
         print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
 
-FILENAME = "points.g2s" # *.gosa2sur   
-points = list()
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print("FATAL ERROR: No input file!")
+        exit()
+    else:
+        FILENAME = sys.argv[1] # *.gosa2sur   
+        points = list()
 
-with open( FILENAME, "rb" ) as file:
-    points = pickle.load( file )
-i = 1
-for p in points:
-    print(i, end=' ')
-    p.Print()
-    i += 1
+        with open( FILENAME, "rb" ) as file:
+            points = pickle.load( file )
+        i = 1
+        for p in points:
+            print(i, end=' ')
+            p.Print()
+            i += 1

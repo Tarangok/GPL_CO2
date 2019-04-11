@@ -1,4 +1,4 @@
-import h5py, pickle, os
+import h5py, pickle, os, sys
 
 class Point:
     def __init__( self, x, y, time, value ):
@@ -59,14 +59,7 @@ if __name__ == "__main__":
         print("Progress: ", "%3.1f"% ((i*100)/countFiles), " %  (", i,"/",countFiles, ')')
         g2s += convert(hdfFile)
         i+=1
-    
-    '''
-    i = 1
-    for e in g2s:
-        print(i, end=' ')
-        e.Print()
-        i += 1
-    '''
-    FILENAME = "points.g2s" # *.gosa2sur
+
+    FILENAME =  sys.argv[1] # *.gosa2sur
     with open(FILENAME, "ab") as file:
         pickle.dump(g2s, file)
