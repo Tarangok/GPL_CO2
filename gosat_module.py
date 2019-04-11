@@ -32,7 +32,7 @@ def FromTar():
 		tar.extractall()
 	os.remove("archiveslist.txt")
 
-def Convert(file_type):
+def Convert():
 	def convert(filename):
 		f = h5py.File("SWIRL2CO2/"+filename, 'r')
 		Data = f['Data']
@@ -80,11 +80,8 @@ def Convert(file_type):
 		i+=1
 
 	date = ''
-	preDate = ''
 	for p in g2s:
-		preDate = date
 		date = p.GetT()[0:7]
 		f = open('' + date + '.json', 'a+')
 		f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
 		i += 1
-	
