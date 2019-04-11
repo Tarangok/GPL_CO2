@@ -91,8 +91,10 @@ def Convert():
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			
 	date = ''
-	for p in points:
-		date = p.GetT()[0:7]
-		f = open('' + date + '.json', 'a+')
-		f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
-		i += 1
+	#keyList = points.keys()
+	for key in points.keys():
+    	for item in points[key]
+			date = item.GetT()[0:7]
+			f = open('' + date + '.json', 'a+')
+			f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
+			i += 1
