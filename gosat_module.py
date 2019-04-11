@@ -90,10 +90,6 @@ def Convert():
 				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			
-	FILENAME = "points.g2s" # *.gosa2sur
-	FILENAME_LITE = "pointslite.g2s" # *.gosa2sur
-	with open(FILENAME, "wb") as file:
-		pickle.dump(points, file)
 	date = ''
 	for p in points:
 		date = p.GetT()[0:7]
