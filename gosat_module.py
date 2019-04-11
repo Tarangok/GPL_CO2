@@ -76,12 +76,10 @@ def Convert():
 		longitudeList = list( longitude )									
 		latitudeList = list( latitude )
 		
-		print(len(timeList))
-		print(numScan)
-		print(dict_str)
+		#print("dict_str", dict_str)
 		for i in range(0, numScan):
 			if dict_str == timeList[i].decode("utf-8")[0:7]:
-				#print("0:6_1 ", timeList[i].decode("utf-8")[0:7], " str", dict_str, " OK!" )
+				#print(timeList[i].decode("utf-8")[0:7], "!")
 				
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			else:
@@ -90,17 +88,14 @@ def Convert():
 				tmplist.clear()
 				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
-			
+		points[str(dict_str)] = list(tmplist)
 	date = ''
-	for key in points.keys():
-			for i in range(0, len(points[key])):
-				print(points[key][i].GetT())
+	
 
-	#print(points['2009-06'][0])
-	#keyList = points.keys()
-	#for key in points.keys():
-	#	for item in points[key]:
-	#		date = item.GetT()[0:7]
-	#		f = open('' + date + '.json', 'a+')
-	#		f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
-	#		i += 1
+	
+	for key in points.keys():
+		for p in points[key]:
+			date = p.GetT()[0:7]
+			f = open('' + date + '.json', 'a+')
+			f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
+			i += 1
