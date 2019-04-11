@@ -43,9 +43,9 @@ def Convert():
 	countFiles = len(array)
 	j = 1
 	tmplist = []
-	tmplist.append("None")
+	tmplist.append("FirstValue")
 	points = dict()
-	dict_str = 'None'
+	dict_str = 'FirstKey'
 	for hdfFile in array:
 		os.system("clear || cls")
 		print("Progress: ", end='')
@@ -69,32 +69,38 @@ def Convert():
 		# Время
 		timeList = list(scanAttribute['time'])
 
-		# Значение
+		# Значение 
 		valueList = list(mixingRatio['XCO2'])
 
 		# Списки долготы и ширины
 		longitudeList = list( longitude )									
 		latitudeList = list( latitude )
 		
-		
+		print(len(timeList))
+		print(numScan)
 		print(dict_str)
-		for i in range(1, numScan):
+		for i in range(0, numScan):
 			if dict_str == timeList[i].decode("utf-8")[0:7]:
 				#print("0:6_1 ", timeList[i].decode("utf-8")[0:7], " str", dict_str, " OK!" )
 				
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			else:
-				#print("0:6_1 ", timeList[i].decode("utf-8")[0:6])
-				points[str(dict_str)] = list(tmplist)
+				if dict_str != 'FirstKey':
+					points[str(dict_str)] = list(tmplist)
 				tmplist.clear()
 				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 			
 	date = ''
-	#keyList = points.keys()
 	for key in points.keys():
-    	for item in points[key]
-			date = item.GetT()[0:7]
-			f = open('' + date + '.json', 'a+')
-			f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
-			i += 1
+			for i in range(0, len(points[key])):
+				print(points[key][i].GetT())
+
+	#print(points['2009-06'][0])
+	#keyList = points.keys()
+	#for key in points.keys():
+	#	for item in points[key]:
+	#		date = item.GetT()[0:7]
+	#		f = open('' + date + '.json', 'a+')
+	#		f.write( '{\n"type": "Feature",\n"geometry": ' + str( geoPoint( ( float( p.GetY() ), float( p.GetX() ) )) ) + ',\n"properties": {\n"value":'+str(p.GetV())+'}\n},\n')
+	#		i += 1
