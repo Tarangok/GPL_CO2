@@ -2,3 +2,5 @@
 /env
 /SWIRL2CO2
 *.json
+__pycache__
+
