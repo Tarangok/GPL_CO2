@@ -3,4 +3,5 @@
 /SWIRL2CO2
 *.json
 __pycache__
-
+/venv
+/archives
