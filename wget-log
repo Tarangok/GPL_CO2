@@ -1,0 +1,7 @@
+--2019-12-05 04:34:38--  https://data2.gosat.nies.go.jp/GosatDataArchiveService/usr/download/ProductPage/download?filePath=/data/wget_list/GU/SWIRL2CO2_GU_V02.81.zip
+Resolving data2.gosat.nies.go.jp (data2.gosat.nies.go.jp)... 158.210.250.85
+Connecting to data2.gosat.nies.go.jp (data2.gosat.nies.go.jp)|158.210.250.85|:443... failed: Connection timed out.
+Retrying.
+
+--2019-12-05 04:37:05--  (try: 2)  https://data2.gosat.nies.go.jp/GosatDataArchiveService/usr/download/ProductPage/download?filePath=/data/wget_list/GU/SWIRL2CO2_GU_V02.81.zip
+Connecting to data2.gosat.nies.go.jp (data2.gosat.nies.go.jp)|158.210.250.85|:443... 

@@ -7,23 +7,23 @@ from classes import Point
 def Check():
     pass
 
-def Download():
-    pass
+def Download(wgetlist: str):
+	os.system("wget -i " + wgetlist + " -P gosat/tpm/archives/ --http-user=tarangok@yandex.ru --http-passwd=GPOtusur19 ")
 
 def FromTar():
-	os.system("ls archives/ >> archiveslist.txt")
-	with open("archiveslist.txt") as file:
+	os.system("ls gosat/tmp/archives/ >> gosat/tmp/archiveslist.txt")
+	with open("gosat/tmp/archiveslist.txt") as file:
 		array = [row.strip() for row in file]
 	for tr in array:
 		tr = 'archives/'+tr
 		tar = tarfile.open(tr, "r")
 		tar.extractall()
-	os.remove("archiveslist.txt")
+	os.remove("gosat/tmp/archiveslist.txt")
 
 def Convert():
 	os.system("rm hdflist.txt")
 	#os.system("rm points.g2s")
-	os.system("ls SWIRL2CO2/ >> hdflist.txt")
+	os.system("ls gosat/tmp/SWIRL2CO2/ >> hdflist.txt")
 
 	with open("hdflist.txt") as file:
 		array = [row.strip() for row in file]
@@ -77,7 +77,7 @@ def Convert():
 				dict_str = timeList[i].decode("utf-8")[0:7]
 				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
 		points[str(dict_str)] = list(tmplist)
-	date = ''
+	
 	
 
 	
