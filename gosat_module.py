@@ -6,17 +6,12 @@ class Point:
 		self.y = y
 		self.time = time
 		self.value = value
-	def Print( self ):
-		print("lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time ))
+
+	def __str__(self):
+		# return "lat =% 4.8f;\t long =% 4.8f;\t val = % 4.8f;\t time = %s " % ( self.x, self.y, self.value, self.time )
+		return f'[{self.x}, {self.y}, {self.value} ]'
 	
-	def GetX(self):
-		return self.x
-	def GetY(self):
-		return self.y
-	def GetT(self):
-		return self.time
-	def GetV(self):
-		return self.value
+
 
 def Check():
     pass
@@ -100,9 +95,10 @@ def Convert():
 		f = open('' + key + '.json', 'a+')
 		f.write("[\n")
 		for p in points[key]:
+
+			f.write(str(p))
 			if i != len(points[key]): 
-				f.write('[' + str(p.GetX()) + ', ' + str(p.GetY()) + ', ' + str(p.GetV()) + '],\n')
-			else:
-				f.write('[' + str(p.GetX()) + ', ' + str(p.GetY()) + ', ' + str(p.GetV()) + ']\n')
+				f.write(',')
+				
 			i += 1
 		f.write("]")
