@@ -2,30 +2,36 @@ import h5py, os, sys, tarfile
 
 from classes import Point
 	
+DEBUG = True
 
 
 def Check():
     pass
 
 def Download(wgetlist: str):
-	os.system("wget -i " + wgetlist + " -P gosat/tpm/archives/ --http-user=tarangok@yandex.ru --http-passwd=GPOtusur19 ")
+	os.system("wget -i " + wgetlist + " -P gosat/tmp/archives/ --http-user=tarangok@yandex.ru --http-passwd=GPOtusur19 ")
 
-def FromTar():
-	os.system("ls gosat/tmp/archives/ >> gosat/tmp/archiveslist.txt")
-	with open("gosat/tmp/archiveslist.txt") as file:
-		array = [row.strip() for row in file]
-	for tr in array:
-		tr = 'archives/'+tr
-		tar = tarfile.open(tr, "r")
-		tar.extractall()
-	os.remove("gosat/tmp/archiveslist.txt")
+def FromTar(path_to_archives, path_to_extract):
+	
+	archives_list = os.listdir(path_to_archives)
+	
+	for archive in archives_list:
+		archive = path_to_archives + archive
+		tar = tarfile.open(archive, "r")
+		tar.extractall(path=path_to_extract)
+		tar.close()
+
+		if not DEBUG:
+			os.remove(archive)
+	return archives_list
 
 def Convert():
-	os.system("rm hdflist.txt")
-	#os.system("rm points.g2s")
-	os.system("ls gosat/tmp/SWIRL2CO2/ >> hdflist.txt")
+	if not os.path.exists("gosat/data"):
+		os.makedirs("gosat/data")
+	os.system("rm gosat/tmp/hdflist.txt")
+	os.system("ls gosat/tmp/HDF/SWIRL2CO2/ >> gosat/tmp/hdflist.txt")
 
-	with open("hdflist.txt") as file:
+	with open("gosat/tmp/hdflist.txt") as file:
 		array = [row.strip() for row in file]
 
 	countFiles = len(array)
@@ -43,7 +49,7 @@ def Convert():
 
 		print(" %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
 		j+=1
-		f = h5py.File("SWIRL2CO2/"+hdfFile, 'r')
+		f = h5py.File("gosat/tmp/HDF/SWIRL2CO2/"+hdfFile, 'r')
 		Data = f['Data']
 		geolocation = Data['geolocation']
 		longitude = geolocation['longitude']
@@ -83,7 +89,7 @@ def Convert():
 	
 	for key in points.keys():
 		i = 1
-		f = open('' + key + '.json', 'a+')
+		f = open('gosat/data/' + key + '.json', 'a+')
 		f.write("[\n")
 		for p in points[key]:
 
