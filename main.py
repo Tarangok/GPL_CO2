@@ -13,11 +13,12 @@ def main():
     parser.add_argument('--gosat', help='Получать данные со спутника GOSAT', action='store_true', default=False)
     parser.add_argument('--tansat', help='Получать данные со спутника TANSAT', action='store_true', default=False)
     parser.add_argument('--oco2', help='Получать данные со спутника OCO2', action='store_true', default=False)
-    parser.add_argument('--update_time', help='Таймер проверки новых данных (в днях)', type=float, action='store')
+    parser.add_argument('--update_time', help='Таймер проверки новых данных (в днях)', type=float, action='store', default=15)
     parser.add_argument('--debug', help='Enable debug mod', action='store_true', default=False)
     args = parser.parse_args()
 
     try:
+        # get time from days to seconds
         update_time = int(args.update_time * 24 * 60 * 60)
 
         while True:
@@ -36,7 +37,7 @@ def main():
 
     except:
         pass
-    
+
     finally:
         pass
 
