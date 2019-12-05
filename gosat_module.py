@@ -26,15 +26,15 @@ def FromTar(path_to_archives, path_to_extract):
 	return archives_list
 
 def Convert():
-	if not os.path.exists("gosat/Data"):
-		os.makedirs("gosat/Data")
+	if not os.path.exists("GOSAT/Data"):
+		os.makedirs("GOSAT/Data")
 
-	hdf5_l = os.listdir('gosat/tmp/HDF/SWIRL2CO2/')
+	hdf5_l = os.listdir('GOSAT/tmp/HDF/SWIRL2CO2/')
 
 
 	for hdf5 in hdf5_l:
 
-		with h5py.File('gosat/tmp/HDF/SWIRL2CO2/' + hdf5, 'r') as f:
+		with h5py.File('GOSAT/tmp/HDF/SWIRL2CO2/' + hdf5, 'r') as f:
 			Data = f['Data']
 			geolocation = Data['geolocation']
 			longitude = geolocation['longitude']
@@ -48,7 +48,7 @@ def Convert():
 			lon_l = list( longitude )									
 			lat_l = list( latitude )
 		
-		with open(f'gosat/Data/{timeList[0].decode("utf-8")[:10]}.json', 'w') as f:
+		with open(f'GOSAT/Data/{timeList[0].decode("utf-8")[:10]}.json', 'w') as f:
 			f.write('[\n')
 			for i in range(len(co2_l)):
 				f.write(str(Point(lon_l[i], lat_l[i], timeList[i], co2_l[i])))

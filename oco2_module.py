@@ -26,7 +26,7 @@ from classes import Point
 DEBUG = True
 
 def Download(wgetlist: str):
-	os.system("wget -i " + wgetlist + " -P oco2/tmp/NC4/")
+	os.system("wget -i " + wgetlist + " -P OCO2/tmp/NC4/")
 
 
 
@@ -34,7 +34,7 @@ def Convert():
 	if not os.path.exists("OCO2/Data"):
 		os.makedirs("OCO2/Data")
 
-	nc4_l = os.listdir('oco2/tmp/NC4/')
+	nc4_l = os.listdir('OCO2/tmp/NC4/')
 
 	for nc4 in nc4_l:
 		with netCDF4.Dataset('OCO2/tmp/NC4/' + nc4) as f:
