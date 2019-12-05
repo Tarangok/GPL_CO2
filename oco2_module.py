@@ -36,6 +36,45 @@ def Convert():
 	os.system("rm oco2/tmp/nc4list.txt")
 	os.system("ls oco2/tmp/NC4/ >> oco2/tmp/nc4list.txt")
 
+	with open("oco2/tmp/nc4list.txt") as file:
+		nc4_l = [row.strip() for row in file]
 
+	tmp = []
+	prev_date = None
 
+	for nc4 in nc4_l:
+		f = netCDF4.Dataset('oco2/tmp/NC4/' + nc4)
+		lon = f.variables['longitude'] 
+		lat = f.variables['latitude']
+		co2 = f.variables['xco2']
+		date = f.variables['date']
+
+		if prev_date == None:
+			with open('oco2/data/' + str(date[0][0]) + '-' + str(date[0][1]) + '.js', 'a+') as f_out:
+				prev_date = date[0][:1]
+				f_out.write("[\n")
+				for i in range(len(co2)):
+					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
+					f_out.write(',')
+		elif prev_date == date[0][:1]:
+			with open('oco2/data/' + str(date[0][0]) + '-' + str(date[0][1]) + '.js', 'a+') as f_out:
+				prev_date = date[0][:1]
+				for i in range(len(co2)):
+					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
+					f_out.write(',')
+		else:
+			with open('oco2/data/' + str(prev_date[0]) + '-' + str(prev_date[1]) + '.js', 'a+') as f_out:
+				f_out.write("]")
+			with open('oco2/data/' + date[0][0] + '-' + date[0][1] + '.js', 'a+') as f_out:
+				prev_date = date[0][:1]
+				f_out.write("[\n")
+				for i in range(len(co2)):
+					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
+					f_out.write(',')
+		
+
+		 
+
+		
+				
 
