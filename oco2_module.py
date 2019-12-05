@@ -49,28 +49,14 @@ def Convert():
 		co2 = f.variables['xco2']
 		date = f.variables['date']
 
-		if prev_date == None:
-			with open('oco2/data/' + str(date[0][0]) + '-' + str(date[0][1]) + '.js', 'a+') as f_out:
-				prev_date = date[0][:1]
-				f_out.write("[\n")
-				for i in range(len(co2)):
-					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
-					f_out.write(',')
-		elif prev_date == date[0][:1]:
-			with open('oco2/data/' + str(date[0][0]) + '-' + str(date[0][1]) + '.js', 'a+') as f_out:
-				prev_date = date[0][:1]
-				for i in range(len(co2)):
-					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
-					f_out.write(',')
-		else:
-			with open('oco2/data/' + str(prev_date[0]) + '-' + str(prev_date[1]) + '.js', 'a+') as f_out:
-				f_out.write("]")
-			with open('oco2/data/' + date[0][0] + '-' + date[0][1] + '.js', 'a+') as f_out:
-				prev_date = date[0][:1]
-				f_out.write("[\n")
-				for i in range(len(co2)):
-					f_out.write(str(Point(lon[i], lat[i], date[i], co2[i])))
-					f_out.write(',')
+		f = open("oco2/data/" + str(date[0][0]) + '-' + str(date[0][1]) +  '-' + str(date[0][2]) + ".json", 'a+')
+		f.write("[\n")
+		for i in range(len(co2)):
+			f.write(str(Point(lon[i], lat[i], date[i][0], co2[i])))
+			if i != len(co2)-1:
+				f.write(',\n')
+		f.write("]")
+
 		
 
 		 
