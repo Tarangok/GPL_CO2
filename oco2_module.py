@@ -31,32 +31,26 @@ def Download(wgetlist: str):
 
 
 def Convert():
-	if not os.path.exists("oco2/Data"):
-		os.makedirs("oco2/Data")
-	os.system("rm oco2/tmp/nc4list.txt")
-	os.system("ls oco2/tmp/NC4/ >> oco2/tmp/nc4list.txt")
+	if not os.path.exists("OCO2/Data"):
+		os.makedirs("OCO2/Data")
 
-	with open("oco2/tmp/nc4list.txt") as file:
-		nc4_l = [row.strip() for row in file]
-
-	tmp = []
-	prev_date = None
+	nc4_l = os.listdir('oco2/tmp/NC4/')
 
 	for nc4 in nc4_l:
-		f = netCDF4.Dataset('oco2/tmp/NC4/' + nc4)
-		lon = f.variables['longitude'] 
-		lat = f.variables['latitude']
-		co2 = f.variables['xco2']
-		date = f.variables['date']
+		with netCDF4.Dataset('OCO2/tmp/NC4/' + nc4) as f:
+			lon_l = f.variables['longitude'] 
+			lat_l = f.variables['latitude']
+			co2_l = f.variables['xco2']
+			date_l = f.variables['date']
 
-		
-		with open(f'oco2/data/{date[0][0]:4d}-{date[0][1]:02d}-{date[0][2]:02d}.json', 'a+') as f:
+			
+		with open(f'OCO2/Data/{date_l[0][0]:4d}-{date_l[0][1]:02d}-{date_l[0][2]:02d}.json', 'w') as f:
 			f.write("[\n")
-			for i in range(len(co2)):
-				f.write(str(Point(lon[i], lat[i], date[i][0], co2[i])))
-				if i != len(co2)-1:
+			for i in range(len(co2_l)):
+				f.write(str(Point(lon_l[i], lat_l[i], date_l[i][0], co2_l[i])))
+				if i != len(co2_l)-1:
 					f.write(',\n')
-			f.write("]")
+			f.write(']')
 
 		
 
