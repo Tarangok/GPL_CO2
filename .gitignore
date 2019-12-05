@@ -1,11 +1,10 @@
 /.vscode
 /env
 /SWIRL2CO2
-*.json
+
 __pycache__
 /venv
 /archives
 
 Trash/
-gosat/
-oco2/
+tmp/

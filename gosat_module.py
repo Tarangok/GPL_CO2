@@ -42,38 +42,16 @@ def Convert():
 			scanAttribute = f['scanAttribute']
 			mixingRatio = Data['mixingRatio']
 
-		# Кол-во сканирований
-		numScan = list(scanAttribute['numScan'])[0]							
-		# Время
-		timeList = list(scanAttribute['time'])
-		# Значение 
-		co2_l = list(mixingRatio['XCO2'])
-		# Списки долготы и ширины
-		lon_l = list( longitude )									
-		lat_l = list( latitude )
+			timeList = list(scanAttribute['time'])
+			# Значение 
+			co2_l = list(mixingRatio['XCO2'])
+			lon_l = list( longitude )									
+			lat_l = list( latitude )
 		
-		with open(f'gosat/Data{timeList[k].decode("utf-8")[:10]}.json', 'w') as f:
+		with open(f'gosat/Data/{timeList[0].decode("utf-8")[:10]}.json', 'w') as f:
 			f.write('[\n')
 			for i in range(len(co2_l)):
 				f.write(str(Point(lon_l[i], lat_l[i], timeList[i], co2_l[i])))
 				if i != len(co2_l)-1:
 					f.write(',\n')
 			f.write(']')
-				
-		
-	
-	
-
-	
-	# for key in points.keys():
-	# 	i = 1
-	# 	f = open('gosat/data/' + key + '.json', 'a+')
-	# 	f.write("[\n")
-	# 	for p in points[key]:
-
-	# 		f.write(str(p))
-	# 		if i != len(points[key]): 
-	# 			f.write(',')
-
-	# 		i += 1
-	# 	f.write("]")
