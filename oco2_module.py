@@ -49,13 +49,14 @@ def Convert():
 		co2 = f.variables['xco2']
 		date = f.variables['date']
 
-		f = open("oco2/data/" + str(date[0][0]) + '-' + str(date[0][1]) +  '-' + str(date[0][2]) + ".json", 'a+')
-		f.write("[\n")
-		for i in range(len(co2)):
-			f.write(str(Point(lon[i], lat[i], date[i][0], co2[i])))
-			if i != len(co2)-1:
-				f.write(',\n')
-		f.write("]")
+		
+		with open(f'oco2/data/{date[0][0]:4d}-{date[0][1]:02d}-{date[0][2]:02d}.json', 'a+') as f:
+			f.write("[\n")
+			for i in range(len(co2)):
+				f.write(str(Point(lon[i], lat[i], date[i][0], co2[i])))
+				if i != len(co2)-1:
+					f.write(',\n')
+			f.write("]")
 
 		
 
