@@ -26,13 +26,10 @@ def FromTar(path_to_archives, path_to_extract):
 	return archives_list
 
 def Convert():
-	if not os.path.exists("gosat/data"):
-		os.makedirs("gosat/data")
-	os.system("rm gosat/tmp/hdflist.txt")
-	os.system("ls gosat/tmp/HDF/SWIRL2CO2/ >> gosat/tmp/hdflist.txt")
+	if not os.path.exists("gosat/Data"):
+		os.makedirs("gosat/Data")
 
-	with open("gosat/tmp/hdflist.txt") as file:
-		array = [row.strip() for row in file]
+	array = os.listdir('gosat/tmp/HDF/SWIRL2CO2/')
 
 	countFiles = len(array)
 	j = 1
@@ -40,22 +37,20 @@ def Convert():
 	tmplist.append("FirstValue")
 	points = dict()
 	dict_str = 'FirstKey'
+
+
+	k = 0
+
 	for hdfFile in array:
-		os.system("clear || cls")
-		print("Progress: ", end='')
+		
 
-		for one_point in range(0,int((j*100)/countFiles)):
-			print(".", end='')
-
-		print(" %3.1f"% ((j*100)/countFiles), " %  (", j,"/",countFiles, ')')
-		j+=1
-		f = h5py.File("gosat/tmp/HDF/SWIRL2CO2/"+hdfFile, 'r')
-		Data = f['Data']
-		geolocation = Data['geolocation']
-		longitude = geolocation['longitude']
-		latitude = geolocation['latitude']
-		scanAttribute = f['scanAttribute']
-		mixingRatio = Data['mixingRatio']
+		with h5py.File("gosat/tmp/HDF/SWIRL2CO2/" + hdfFile, 'r') as f:
+			Data = f['Data']
+			geolocation = Data['geolocation']
+			longitude = geolocation['longitude']
+			latitude = geolocation['latitude']
+			scanAttribute = f['scanAttribute']
+			mixingRatio = Data['mixingRatio']
 
 		# Кол-во сканирований
 		numScan = list(scanAttribute['numScan'])[0]							
@@ -70,32 +65,29 @@ def Convert():
 		longitudeList = list( longitude )									
 		latitudeList = list( latitude )
 		
-		#print("dict_str", dict_str)
-		for i in range(0, numScan):
-			if dict_str == timeList[i].decode("utf-8")[0:7]:
-				#print(timeList[i].decode("utf-8")[0:7], "!")
+		with open('gosat/Data' + timeList[k].decode("utf-8")[0:7] + '.json', 'a+') as f:
+			f.write('[\n')
+			for i in range(numScan):
+				f.write(str(Point(longitudeList[i], latitudeList[i], timeList[i], valueList[i] )))
+				if i != len(points[key]): 
+					f.write(',')
+				f.write(']')
 				
-				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
-			else:
-				if dict_str != 'FirstKey':
-					points[str(dict_str)] = list(tmplist)
-				tmplist.clear()
-				dict_str = timeList[i].decode("utf-8")[0:7]
-				tmplist.append( Point ( longitudeList[i], latitudeList[i], timeList[i].decode("utf-8"), valueList[i] ))
-		points[str(dict_str)] = list(tmplist)
+				
+		
 	
 	
 
 	
-	for key in points.keys():
-		i = 1
-		f = open('gosat/data/' + key + '.json', 'a+')
-		f.write("[\n")
-		for p in points[key]:
+	# for key in points.keys():
+	# 	i = 1
+	# 	f = open('gosat/data/' + key + '.json', 'a+')
+	# 	f.write("[\n")
+	# 	for p in points[key]:
 
-			f.write(str(p))
-			if i != len(points[key]): 
-				f.write(',')
+	# 		f.write(str(p))
+	# 		if i != len(points[key]): 
+	# 			f.write(',')
 
-			i += 1
-		f.write("]")
+	# 		i += 1
+	# 	f.write("]")

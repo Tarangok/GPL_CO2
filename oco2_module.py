@@ -31,8 +31,8 @@ def Download(wgetlist: str):
 
 
 def Convert():
-	if not os.path.exists("oco2/data"):
-		os.makedirs("oco2/data")
+	if not os.path.exists("oco2/Data"):
+		os.makedirs("oco2/Data")
 	os.system("rm oco2/tmp/nc4list.txt")
 	os.system("ls oco2/tmp/NC4/ >> oco2/tmp/nc4list.txt")
 
